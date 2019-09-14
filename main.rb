@@ -58,3 +58,6 @@ end
 
 cropAndResize(raw, NorthEastGravity, rightSize).write("right.jpg")
 cropAndResize(raw, NorthWestGravity, leftSize).write("left.jpg")
+
+system("nitrogen --force-setter=xinerama --head=1 --set-zoom-fill left.jpg")
+system("nitrogen --force-setter=xinerama --head=0 --set-zoom-fill right.jpg")
