@@ -23,22 +23,38 @@ url = "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/5424x5424.jpg"
 imageX = 5424
 imageY = 5424
 
-leftX = 2560
-leftY = 1440
+leftSize = '2560x1440'
 
-rightX = 1920
-rightY = 1080
+rightSize = '1920x1080'
 
 Down.download(url, destination: "./current.jpg")
 
 raw = ImageList.new("current.jpg")
 
-left=raw.crop(NorthWestGravity,imageX/2, imageY/2)
-left.resize_to_fill!(leftX, leftY, NorthGravity)
-left.display
-left.write("left.jpg")
+def cropAndResize(input, gravity, outputSize)
 
-right=raw.crop(NorthEastGravity,imageX/2, imageY/2)
-right.resize_to_fill!(leftX, leftY, NorthGravity)
-right.display
-right.write("right.jpg")
+  result = input.crop(gravity,input.rows/2, input.columns/2)
+  
+  x,y = outputSize.split('x').map(&:to_i)
+  #puts x
+  #puts y
+
+  maxDim = [x,y].max
+
+  #puts maxDim
+
+  result.resize!(maxDim, maxDim)
+  result.write(".temp.jpg")
+
+  final = ImageList.new(".temp.jpg")
+
+  final.crop!(0,0, x, y)
+
+  #final.display
+
+  return final
+
+end
+
+cropAndResize(raw, NorthEastGravity, rightSize).write("right.jpg")
+cropAndResize(raw, NorthWestGravity, leftSize).write("left.jpg")
