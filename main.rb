@@ -27,9 +27,9 @@ leftSize = '2560x1440'
 
 rightSize = '1920x1080'
 
-Down.download(url, destination: "./current.jpg")
+Down.download(url, destination: "./.current.jpg")
 
-raw = ImageList.new("current.jpg")
+raw = ImageList.new(".current.jpg")
 
 def cropAndResize(input, gravity, outputSize)
 
@@ -56,8 +56,8 @@ def cropAndResize(input, gravity, outputSize)
 
 end
 
-cropAndResize(raw, NorthEastGravity, rightSize).write("right.jpg")
-cropAndResize(raw, NorthWestGravity, leftSize).write("left.jpg")
+cropAndResize(raw, NorthEastGravity, rightSize).write(".right.jpg")
+cropAndResize(raw, NorthWestGravity, leftSize).write(".left.jpg")
 
-system("nitrogen --force-setter=xinerama --head=1 --set-zoom-fill left.jpg")
-system("nitrogen --force-setter=xinerama --head=0 --set-zoom-fill right.jpg")
+system("nitrogen --force-setter=xinerama --head=1 --set-zoom-fill .left.jpg")
+system("nitrogen --force-setter=xinerama --head=0 --set-zoom-fill .right.jpg")
