@@ -10,6 +10,8 @@ clone me
 Probably some other shit here too
 
 into `crontab -e` put. **Make sure to include a newline after this line so the command actually executes**
-```*/10 * * * * export DISPLAY=:0 ; ~/noaa-background/main.rb >> ~/log.log 2>&1
+```
+*/10 * * * * export DISPLAY=:0 ; ~/noaa-background/main.rb >> ~/log.log 2>&1
+
 ```
 
